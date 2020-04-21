@@ -5,22 +5,23 @@ for i = 1:num_cam
 end
 
 % Set matrices for Projection matrix
-K1 = eye(3); K2 = eye(3); K3 = eye(3);
-R1 = diag([0.5,0.5,1]); R2 = diag([0.5,0.5,1]); R3 = diag([0.5,0.5,1]);
-t1 = [0 0 0]'; t2 = [0 0 0]'; t3 = [0 0 0]';
+K1 = cameraParams.IntrinsicMatrix; K2 = K1; K3 = K1;
+R1 = cameraParams.RotationMatrices(:,:,1); R2 = cameraParams.RotationMatrices(:,:,2); R3 = cameraParams.RotationMatrices(:,:,3);
+t1 = cameraParams.TranslationVectors(1,:)'; t2 = cameraParams.TranslationVectors(2,:)'; t3 = cameraParams.TranslationVectors(3,:)';
 
 % Update Projection matrix and update G
 cam(1).assign_KRt(K1, R1, t1);
 cam(2).assign_KRt(K2, R2, t2);
 cam(3).assign_KRt(K3, R3, t3);
+
 for i = 1:num_cam
     cam(i).update_G();
 end
 
 % Update c_star
-detection1 = [0.3 0.2 0.8 0.5];
-detection2 = [0.3 0.2 0.8 0.5];
-detection3 = [0.3 0.2 0.8 0.5];
+detection1 = [1900 2184-1200 400 1100];
+detection2 = [2057 2184-758 500 2000];
+detection3 = [1750 2184-830 500 1500];
 
 cam(1).detection(detection1);
 cam(2).detection(detection2);
