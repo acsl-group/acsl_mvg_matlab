@@ -13,9 +13,9 @@ t1 = [0 0 0]'; t2 = [0 0 0]'; t3 = [0 0 0]';
 cam(1).assign_KRt(K1, R1, t1);
 cam(2).assign_KRt(K2, R2, t2);
 cam(3).assign_KRt(K3, R3, t3);
-cam(1).update_G();
-cam(2).update_G();
-cam(3).update_G();
+for i = 1:num_cam
+    cam(i).update_G();
+end
 
 % Update c_star
 detection1 = [0.3 0.2 0.8 0.5];
