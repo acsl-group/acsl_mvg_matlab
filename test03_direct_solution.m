@@ -1,3 +1,5 @@
+load('cameraParams.mat')
+
 % Initialize camera object
 num_cam = 3;
 for i = 1:num_cam
