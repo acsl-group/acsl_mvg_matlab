@@ -1,10 +1,12 @@
 % Run this code after running test03 code
 
 % Assume there is transformation T such that x = T * x_transformed
-[V_eig,D_eig] = eig(Q);                 % Q = V_eig * D_eig * V_eig', D_eig is diagonal
-normalize_factor = D_eig(4,4);
-Q_transformed = D_eig / normalize_factor;
-T = V_eig' * sqrt(normalize_factor);    % Q = T' * Q_transformed * T
+[V_eig, d_eig] = eig(Q, 'vector');                  % Q = V_eig * diag(d_eig) * V_eig'
+[d_eig, ind] = sort(d_eig, 'descend');
+V_eig = V_eig(:, ind);
+normalize_factor = -d_eig(4);
+Q_transformed = diag(d_eig') / normalize_factor;
+T = inv(V_eig' * sqrt(normalize_factor));           % Q = inv(T)' * Q_transformed * inv(T)
 
 length_x = nthroot(Q_transformed(1,1), -2);
 length_y = nthroot(Q_transformed(2,2), -2);
@@ -29,3 +31,4 @@ end
 figure
 surf(x,y,z)
 axis equal
+xlabel('X (m)'); ylabel('Y (m)'); zlabel('Z (m)');
