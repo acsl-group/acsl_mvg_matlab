@@ -7,8 +7,8 @@ for i = 1:num_cam
 end
 
 % Set matrices for Projection matrix
-K1 = cameraParams.IntrinsicMatrix; K2 = K1; K3 = K1;
-R1 = cameraParams.RotationMatrices(:,:,1); R2 = cameraParams.RotationMatrices(:,:,2); R3 = cameraParams.RotationMatrices(:,:,3);
+K1 = cameraParams.IntrinsicMatrix'; K2 = K1; K3 = K1;
+R1 = cameraParams.RotationMatrices(:,:,1)'; R2 = cameraParams.RotationMatrices(:,:,2)'; R3 = cameraParams.RotationMatrices(:,:,3)';
 t1 = cameraParams.TranslationVectors(1,:)'; t2 = cameraParams.TranslationVectors(2,:)'; t3 = cameraParams.TranslationVectors(3,:)';
 
 % Update Projection matrix and update G

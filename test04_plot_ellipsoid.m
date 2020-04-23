@@ -1,20 +1,23 @@
-Q = diag([1,2,3,-1]);
-Rot1 = [cos(pi/6) -sin(pi/6) 0 0 ; sin(pi/6) cos(pi/6) 0 0 ; 0 0 1 0 ; 0 0 0 1];
-Rot2 = [cos(pi/4) 0 -sin(pi/4) 0 ; 0 1 0 0 ; sin(pi/4) 0 cos(pi/4) 0 ; 0 0 0 1];
-Q = Rot1 * Q * Rot1';
-Q = Rot2 * Q * Rot2';
+Q = diag([4,1,9,-1]);
+Transform1 = [cos(pi/4) -sin(pi/4) 0 0 ; sin(pi/4) cos(pi/4) 0 0 ; 0 0 1 0 ; 0 0 0 1];
+Transform2 = [cos(pi/6) 0 -sin(pi/6) 0 ; 0 1 0 0 ; sin(pi/6) 0 cos(pi/6) 0 ; 0 0 0 1];
+Transform3 = [1 0 0 3 ; 0 1 0 7 ; 0 0 1 5 ; 0 0 0 1];
+Q = Transform1 * Q * Transform1';
+Q = Transform2 * Q * Transform2';
+Q = Transform3 * Q * Transform3';
 
-% Assume there is transformation T such that x = T * x_transformed
-[V_eig, d_eig] = eig(Q, 'vector');                  % Q = V_eig * diag(d_eig) * V_eig'
-[d_eig, ind] = sort(d_eig, 'descend');
-V_eig = V_eig(:, ind);
-normalize_factor = -d_eig(4);
-Q_transformed = diag(d_eig') / normalize_factor;
-T = inv(V_eig' * sqrt(normalize_factor));           % Q = inv(T)' * Q_transformed * inv(T)
+% Obtain translation
+trans = -Q(1:3,4);
 
-length_x = nthroot(Q_transformed(1,1), -2);
-length_y = nthroot(Q_transformed(2,2), -2);
-length_z = nthroot(Q_transformed(3,3), -2);
+% Obtain rotation transform R
+A = Q(1:3,1:3) + trans * trans';
+[V_eig, d_eig] = eig(A, 'vector');      % A = V_eig * diag(d_eig) * V_eig'
+R = inv(V_eig');                        % A = R * diag(d_eig) * R'
+
+% Axis length
+length_x = nthroot(d_eig(1), -2);
+length_y = nthroot(d_eig(2), -2);
+length_z = nthroot(d_eig(3), -2);
 
 [x_transformed,y_transformed,z_transformed] = ellipsoid(0,0,0,length_x,length_y,length_z,30);
 x = zeros(size(x_transformed));
@@ -24,6 +27,7 @@ z = zeros(size(z_transformed));
 num_plot = length(x_transformed);
 for i = 1:num_plot
     for j = 1:num_plot
+        T = [R trans; zeros(1,3) 1];
         coord = T * [x_transformed(i,j) y_transformed(i,j) z_transformed(i,j) 1]';
         coord = coord / coord(4);  % normalize
         x(i,j) = coord(1);
