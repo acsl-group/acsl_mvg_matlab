@@ -1,4 +1,8 @@
-% Run this code after running test03 code
+Q = diag([1,2,3,-1]);
+Rot1 = [cos(pi/6) -sin(pi/6) 0 0 ; sin(pi/6) cos(pi/6) 0 0 ; 0 0 1 0 ; 0 0 0 1];
+Rot2 = [cos(pi/4) 0 -sin(pi/4) 0 ; 0 1 0 0 ; sin(pi/4) 0 cos(pi/4) 0 ; 0 0 0 1];
+Q = Rot1 * Q * Rot1';
+Q = Rot2 * Q * Rot2';
 
 % Assume there is transformation T such that x = T * x_transformed
 [V_eig, d_eig] = eig(Q, 'vector');                  % Q = V_eig * diag(d_eig) * V_eig'
