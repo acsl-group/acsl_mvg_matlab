@@ -1,7 +1,8 @@
 % Building the Extrinsic Matrix from Camera Pose
 % Link: http://ksimek.github.io/2012/08/22/extrinsic/
 % Yaw, pitch, and roll to a rotation matrix
-% Link: http://planning.cs.uiuc.edu/node102.html
+% Link 1: http://planning.cs.uiuc.edu/node102.html
+% Link 2: https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions
 
 load('cameraParams.mat')
 

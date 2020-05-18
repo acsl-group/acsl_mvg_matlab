@@ -34,10 +34,11 @@ classdef Camera < handle
             % Define functions for generate C and c_star
             syms xc yc w h
             assume([xc, yc, w, h],'positive');
-            C = [h^2, 0, -h^2*xc ;
-                0, w^2, -w^2*yc ;
-                -h^2*xc, -w^2*yc, h^2*xc^2+w^2*yc^2-1/4*w^2*h^2];
+            C = [4*w^2 0 -4*w^2*xc ;
+                0 4*h^2 -4*h^2*yc ;
+                -4*w^2*xc -4*h^2*yc 4*w^2*xc^2+4*h^2*yc^2-w^2*h^2];
             C_adj = adjoint(C);
+            C_adj = -C_adj / C_adj(3,3);
             c_star = vech(C_adj);
             
             C_func = symfun(C, [xc, yc, w, h]);

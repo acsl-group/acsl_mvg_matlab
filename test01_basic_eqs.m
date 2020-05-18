@@ -8,11 +8,13 @@ P = K * [R t];
 % C in Conic equation (2D ellipse)
 syms xc yc w h
 assume([xc, yc, w, h],'positive');
-C = [h^2, 0, -h^2*xc ;
-	0, w^2, -w^2*yc ;
-	-h^2*xc, -w^2*yc, h^2*xc^2+w^2*yc^2-1/4*w^2*h^2];
+C = [4*w^2 0 -4*w^2*xc ;
+    0 4*h^2 -4*h^2*yc ;
+    -4*w^2*xc -4*h^2*yc 4*w^2*xc^2+4*h^2*yc^2-w^2*h^2];
 C_adj = adjoint(C);
+C_adj = -C_adj / C_adj(3,3);
 c_star = vech(C_adj);
+adj_inverse(C_adj)
 
 % D and E (Eq. (4))
 D = zeros(6,9);
@@ -58,5 +60,5 @@ end
 function A = adj_inverse(A_adj)
     dim = length(A_adj);
     det_A = nthroot(det(A_adj),dim-1);
-    A = -det_A * inv(A_adj);
+    A = det_A * inv(A_adj) / 1i;
 end
