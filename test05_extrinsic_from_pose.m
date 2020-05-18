@@ -2,7 +2,7 @@
 % Link: http://ksimek.github.io/2012/08/22/extrinsic/
 % Yaw, pitch, and roll to a rotation matrix
 % Link 1: http://planning.cs.uiuc.edu/node102.html
-% Link 2: https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions
+% Link 2: https://www.euclideanspace.com/maths/geometry/rotations/for/index.htm
 
 load('cameraParams.mat')
 
@@ -17,7 +17,7 @@ end
 
 % Euler angles (yaw, pitch, roll)
 % Drone - Camera
-eul_DC = [pi/2 0 pi/2]';
+eul_DC = [-pi/2 -pi/2 pi/2]';
 
 % Euler angles (yaw, pitch, roll) and Position of Drones
 % World - Drone
