@@ -122,12 +122,15 @@ for i = 1:num_plot
 end
 
 % Plot point detection results
-figure(1); plot(reshape(y_cam1,[],1), reshape(x_cam1,[],1),'.');
-ax = gca; ax.YDir = 'reverse';
-figure(2); plot(reshape(y_cam2,[],1), reshape(x_cam2,[],1),'.');
-ax = gca; ax.YDir = 'reverse';
-figure(3); plot(reshape(y_cam3,[],1), reshape(x_cam3,[],1),'.');
-ax = gca; ax.YDir = 'reverse';
+figure(1); plot(reshape(x_cam1,[],1), reshape(y_cam1,[],1),'.');
+xlim([1 4608]); ylim([1 2184]); ax = gca; ax.YDir = 'reverse';
+title('Camera 1')
+figure(2); plot(reshape(x_cam2,[],1), reshape(y_cam2,[],1),'.');
+xlim([1 4608]); ylim([1 2184]); ax = gca; ax.YDir = 'reverse';
+title('Camera 2')
+figure(3); plot(reshape(x_cam3,[],1), reshape(y_cam3,[],1),'.');
+xlim([1 4608]); ylim([1 2184]); ax = gca; ax.YDir = 'reverse';
+title('Camera 3')
 
 % Consider bounding box of each image
 x_min_cam1 = min(x_cam1,[],'all'); y_min_cam1 = min(y_cam1,[],'all');
