@@ -17,15 +17,15 @@ end
 
 % Euler angles (yaw, pitch, roll)
 % Drone - Camera
-eul_DC = [-pi/2 -pi/2 pi/2]';
+eul_DC = [pi/2 0 pi/2]';
 
 % Euler angles (yaw, pitch, roll) and Position of Drones
 % World - Drone
 eul1 = [-pi/4, pi - acos(sqrt(2/3)), 0]';
 eul2 = [pi/4, pi - acos(sqrt(2/3)), 0]';
 eul3 = [0 0 0]';
-position1 = [10 -10 10]';
-position2 = [10 10 10]';
+position1 = [20 -20 20]';
+position2 = [20 20 20]';
 position3 = [20 0 0]';
 
 % Compute Extrinsic matrix parameters
