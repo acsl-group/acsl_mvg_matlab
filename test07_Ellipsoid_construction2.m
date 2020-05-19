@@ -162,6 +162,7 @@ axis equal; xlim(plt3,[1 4608]); ylim(plt3,[1 2184]); set(gca, 'YDir', 'reverse'
 title(plt3, 'Camera 3')
 
 % Plot ellipsoid construction results
+num_plot = 30;
 [x_sol,y_sol,z_sol] = ellipsoid_from_Q(Q_sol, num_plot);
 
 figure(2);
