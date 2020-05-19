@@ -102,18 +102,18 @@ x_max_cam3 = max(x_cam3,[],'all'); y_max_cam3 = max(y_cam3,[],'all');
 % xc, yc, w, h
 xc_cam1 = (x_min_cam1 + x_max_cam1) / 2;
 yc_cam1 = (y_min_cam1 + y_max_cam1) / 2;
-w_cam1 = y_max_cam1 - y_min_cam1;
-h_cam1 = x_max_cam1 - x_min_cam1;
+w_cam1 = x_max_cam1 - x_min_cam1;
+h_cam1 = y_max_cam1 - y_min_cam1;
 
 xc_cam2 = (x_min_cam2 + x_max_cam2) / 2;
 yc_cam2 = (y_min_cam2 + y_max_cam2) / 2;
-w_cam2 = y_max_cam2 - y_min_cam2;
-h_cam2 = x_max_cam2 - x_min_cam2;
+w_cam2 = x_max_cam2 - x_min_cam2;
+h_cam2 = y_max_cam2 - y_min_cam2;
 
 xc_cam3 = (x_min_cam3 + x_max_cam3) / 2;
 yc_cam3 = (y_min_cam3 + y_max_cam3) / 2;
-w_cam3 = y_max_cam3 - y_min_cam3;
-h_cam3 = x_max_cam3 - x_min_cam3;
+w_cam3 = x_max_cam3 - x_min_cam3;
+h_cam3 = y_max_cam3 - y_min_cam3;
 
 % Update c_star
 detection1 = [xc_cam1 yc_cam1 w_cam1 h_cam1]';
@@ -156,17 +156,17 @@ disp(Q_sol)
 figure(1);
 plt1 = subplot(3,1,1);
 plot(reshape(x_cam1,[],1), reshape(y_cam1,[],1),'.'); hold on;
-rectangle('Position', [xc_cam1-0.5*h_cam1 yc_cam1-0.5*w_cam1 h_cam1 w_cam1], 'EdgeColor', 'r', 'LineWidth', 1.5);
+rectangle('Position', [xc_cam1-0.5*w_cam1 yc_cam1-0.5*h_cam1 w_cam1 h_cam1], 'EdgeColor', 'r', 'LineWidth', 1.5);
 axis equal; xlim(plt1,[1 4608]); ylim(plt1,[1 2184]); set(gca, 'YDir', 'reverse');
 title(plt1, 'Camera 1')
 plt2 = subplot(3,1,2);
 plot(reshape(x_cam2,[],1), reshape(y_cam2,[],1),'.');
-rectangle('Position', [xc_cam2-0.5*h_cam2 yc_cam2-0.5*w_cam2 h_cam2 w_cam2], 'EdgeColor', 'r', 'LineWidth', 1.5);
+rectangle('Position', [xc_cam2-0.5*w_cam2 yc_cam2-0.5*h_cam2 w_cam2 h_cam2], 'EdgeColor', 'r', 'LineWidth', 1.5);
 axis equal; xlim(plt2,[1 4608]); ylim(plt2,[1 2184]); set(gca, 'YDir', 'reverse');
 title(plt2, 'Camera 2')
 plt3 = subplot(3,1,3);
 plot(reshape(x_cam3,[],1), reshape(y_cam3,[],1),'.');
-rectangle('Position', [xc_cam3-0.5*h_cam3 yc_cam3-0.5*w_cam3 h_cam3 w_cam3], 'EdgeColor', 'r', 'LineWidth', 1.5);
+rectangle('Position', [xc_cam3-0.5*w_cam3 yc_cam3-0.5*h_cam3 w_cam3 h_cam3], 'EdgeColor', 'r', 'LineWidth', 1.5);
 axis equal; xlim(plt3,[1 4608]); ylim(plt3,[1 2184]); set(gca, 'YDir', 'reverse');
 title(plt3, 'Camera 3')
 
