@@ -23,9 +23,9 @@ eul_DC = [pi/2 0 pi/2]';
 eul1 = [-pi/4, pi - acos(sqrt(2/3)), 0]';
 eul2 = [pi/4, pi - acos(sqrt(2/3)), 0]';
 eul3 = [0 0 0]';
-position1 = [20 -20 20]';
-position2 = [20 20 20]';
-position3 = [20 0 0]';
+position1 = [5 -5 5]';
+position2 = [5 5 5]';
+position3 = [10 0 0]';
 
 % Compute Extrinsic matrix parameters
 R_DC = Rotation_matrix(eul_DC(1), eul_DC(2), eul_DC(3));
