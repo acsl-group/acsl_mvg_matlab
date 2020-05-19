@@ -89,21 +89,6 @@ for i = 1:num_plot
     end
 end
 
-% Plot point detection results
-figure(1);
-plt1 = subplot(3,1,1);
-plot(reshape(x_cam1,[],1), reshape(y_cam1,[],1),'.');
-axis equal; xlim(plt1,[1 4608]); ylim(plt1,[1 2184]); set(gca, 'YDir', 'reverse');
-title(plt1, 'Camera 1')
-plt2 = subplot(3,1,2);
-plot(reshape(x_cam2,[],1), reshape(y_cam2,[],1),'.');
-axis equal; xlim(plt2,[1 4608]); ylim(plt2,[1 2184]); set(gca, 'YDir', 'reverse');
-title(plt2, 'Camera 2')
-plt3 = subplot(3,1,3);
-plot(reshape(x_cam3,[],1), reshape(y_cam3,[],1),'.');
-axis equal; xlim(plt3,[1 4608]); ylim(plt3,[1 2184]); set(gca, 'YDir', 'reverse');
-title(plt3, 'Camera 3')
-
 % Consider bounding box of each image
 x_min_cam1 = min(x_cam1,[],'all'); y_min_cam1 = min(y_cam1,[],'all');
 x_max_cam1 = max(x_cam1,[],'all'); y_max_cam1 = max(y_cam1,[],'all');
@@ -166,7 +151,26 @@ disp(Q)
 disp('Estimated Q is')
 disp(Q_sol)
 
-% Plot results
+%% Result analysis
+% Plot point detection results
+figure(1);
+plt1 = subplot(3,1,1);
+plot(reshape(x_cam1,[],1), reshape(y_cam1,[],1),'.'); hold on;
+rectangle('Position', [xc_cam1-0.5*h_cam1 yc_cam1-0.5*w_cam1 h_cam1 w_cam1], 'EdgeColor', 'r', 'LineWidth', 1.5);
+axis equal; xlim(plt1,[1 4608]); ylim(plt1,[1 2184]); set(gca, 'YDir', 'reverse');
+title(plt1, 'Camera 1')
+plt2 = subplot(3,1,2);
+plot(reshape(x_cam2,[],1), reshape(y_cam2,[],1),'.');
+rectangle('Position', [xc_cam2-0.5*h_cam2 yc_cam2-0.5*w_cam2 h_cam2 w_cam2], 'EdgeColor', 'r', 'LineWidth', 1.5);
+axis equal; xlim(plt2,[1 4608]); ylim(plt2,[1 2184]); set(gca, 'YDir', 'reverse');
+title(plt2, 'Camera 2')
+plt3 = subplot(3,1,3);
+plot(reshape(x_cam3,[],1), reshape(y_cam3,[],1),'.');
+rectangle('Position', [xc_cam3-0.5*h_cam3 yc_cam3-0.5*w_cam3 h_cam3 w_cam3], 'EdgeColor', 'r', 'LineWidth', 1.5);
+axis equal; xlim(plt3,[1 4608]); ylim(plt3,[1 2184]); set(gca, 'YDir', 'reverse');
+title(plt3, 'Camera 3')
+
+% Plot ellipsoid construction results
 [x_sol,y_sol,z_sol] = ellipsoid_from_Q(Q_sol, num_plot);
 
 figure(2);
