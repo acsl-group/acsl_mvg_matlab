@@ -21,9 +21,9 @@ for i = 1:num_cam
 end
 
 % Update c_star
-detection1 = [1900 2184-1200 400 1100];
-detection2 = [2057 2184-758 500 2000];
-detection3 = [1750 2184-830 500 1500];
+detection1 = [1855 1427 310 1089];      % img1_1
+detection2 = [1925 1178 550 1986];      % img1_2
+detection3 = [1709 1219 468 1502];      % img1_4
 
 cam(1).detection(detection1);
 cam(2).detection(detection2);
