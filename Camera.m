@@ -5,10 +5,10 @@ classdef Camera < handle
     % P, D, E => G
     
     properties
-        K, R, t, P, D, E, G
+        K, R, t, P, D, E, G, H, T
         xc, yc, w, h
-        C, c_star
-        C_func, c_star_func
+        C, c_star, C2, c2_star
+        C_func, c_star_func, C2_func, c2_star_func
     end
     
     methods
@@ -37,14 +37,24 @@ classdef Camera < handle
             C = [4*h^2 0 -4*h^2*xc ;
                 0 4*w^2 -4*w^2*yc ;
                 -4*h^2*xc -4*w^2*yc 4*h^2*xc^2+4*w^2*yc^2-w^2*h^2];
+            C2 = [4/w^2 0 0 ; 
+                0 4/h^2 0 ;
+                0 0 -1];
             C_adj = adjoint(C);
+            C2_adj = adjoint(C2);
             C_adj = -C_adj / C_adj(3,3);
+            C2_adj = -C2_adj / C2_adj(3,3);
             c_star = vech(C_adj);
+            c2_star = vech(C2_adj);
             
             C_func = symfun(C, [xc, yc, w, h]);
+            C2_func = symfun(C2, [xc, yc, w, h]);
             obj.C_func = matlabFunction(C_func);
+            obj.C2_func = matlabFunction(C2_func);
             c_star = symfun(c_star, [xc, yc, w, h]);
+            c2_star = symfun(c2_star, [xc, yc, w, h]);
             obj.c_star_func = matlabFunction(c_star);
+            obj.c2_star_func = matlabFunction(c2_star);
         end
         
         function assign_P(obj, P)
@@ -74,6 +84,23 @@ classdef Camera < handle
         
         function update_c_star(obj)
             obj.c_star = obj.c_star_func(obj.xc, obj.yc, obj.w, obj.h);
+        end
+        
+        function update_c2_star(obj)
+            obj.c2_star = obj.c2_star_func(obj.xc, obj.yc, obj.w, obj.h);
+        end
+        
+        function update_H(obj)
+            h_ellipse = sqrt((obj.w * 0.5)^2 + (obj.h * 0.5)^2);
+            obj.H = zeros(3);
+            obj.H(1:2, 1:2) = h_ellipse * eye(2);
+            obj.H(1:2, 3) = [obj.xc obj.yc]';
+            obj.H(3, 3) = 1;
+        end
+        
+        function update_T(obj, Q_adj)
+            obj.T = eye(4);
+            obj.T(1:3, 4) = Q_adj(1:3, 4);
         end
     end
 end
